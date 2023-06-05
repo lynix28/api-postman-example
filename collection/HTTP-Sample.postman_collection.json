@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "0899e723-b545-439f-a314-e2a20e26efc9",
+		"name": "HTTP-Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5846330"
+	},
+	"item": [
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json();\r",
+									"const jsonSchema = {\r",
+									"    \"title\": \"Root Schema\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"default\": {},\r",
+									"    \"required\": [\r",
+									"        \"page\",\r",
+									"        \"per_page\",\r",
+									"        \"total\",\r",
+									"        \"total_pages\",\r",
+									"        \"data\",\r",
+									"        \"support\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"page\": {\r",
+									"            \"title\": \"The page Schema\",\r",
+									"            \"type\": \"integer\",\r",
+									"            \"default\": 0\r",
+									"        },\r",
+									"        \"per_page\": {\r",
+									"            \"title\": \"The per_page Schema\",\r",
+									"            \"type\": \"integer\",\r",
+									"            \"default\": 0\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"            \"title\": \"The total Schema\",\r",
+									"            \"type\": \"integer\",\r",
+									"            \"default\": 0\r",
+									"        },\r",
+									"        \"total_pages\": {\r",
+									"            \"title\": \"The total_pages Schema\",\r",
+									"            \"type\": \"integer\",\r",
+									"            \"default\": 0\r",
+									"        },\r",
+									"        \"data\": {\r",
+									"            \"title\": \"The data Schema\",\r",
+									"            \"type\": \"array\",\r",
+									"            \"default\": []\r",
+									"        },\r",
+									"        \"support\": {\r",
+									"            \"title\": \"The support Schema\",\r",
+									"            \"type\": \"object\",\r",
+									"            \"default\": {},\r",
+									"            \"required\": [\r",
+									"                \"url\",\r",
+									"                \"text\"\r",
+									"            ],\r",
+									"            \"properties\": {\r",
+									"                \"url\": {\r",
+									"                    \"title\": \"The url Schema\",\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"default\": \"\"\r",
+									"                },\r",
+									"                \"text\": {\r",
+									"                    \"title\": \"The text Schema\",\r",
+									"                    \"type\": \"string\",\r",
+									"                    \"default\": \"\"\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response show no error\", function () {\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JSON Schema is valid\", function () {\r",
+									"    pm.expect(tv4.validate(responseData, jsonSchema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total user data should be 20\", function () {\r",
+									"    pm.expect(responseData.total).to.eql(12);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Sample API for GET Method.\n\nThe objective is getting users data from Reqress.in"
+					},
+					"response": [
+						{
+							"name": "Positive Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/users?page=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 05 Jun 2023 08:19:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"3e4-2RLXvr5wTg9YQ6aH95CkYoFNuO8\""
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=14400"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "HIT"
+								},
+								{
+									"key": "Age",
+									"value": "4591"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=%2BbIvYQnQ4BCxF9OadfB9%2FwGwVYcEj7%2F4oiO%2BG%2B0o5zr5jwzYEiokNIAbF8EYoM2plvwU1UHUWTDQGUuI0LGF4qVVh%2BYwDegx0nXzTU9hxKy0mSBcL%2FlY2D%2F7ow%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "7d26fd3838b19f83-SIN"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"page\": 1,\n    \"per_page\": 6,\n    \"total\": 12,\n    \"total_pages\": 2,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"email\": \"george.bluth@reqres.in\",\n            \"first_name\": \"George\",\n            \"last_name\": \"Bluth\",\n            \"avatar\": \"https://reqres.in/img/faces/1-image.jpg\"\n        },\n        {\n            \"id\": 2,\n            \"email\": \"janet.weaver@reqres.in\",\n            \"first_name\": \"Janet\",\n            \"last_name\": \"Weaver\",\n            \"avatar\": \"https://reqres.in/img/faces/2-image.jpg\"\n        },\n        {\n            \"id\": 3,\n            \"email\": \"emma.wong@reqres.in\",\n            \"first_name\": \"Emma\",\n            \"last_name\": \"Wong\",\n            \"avatar\": \"https://reqres.in/img/faces/3-image.jpg\"\n        },\n        {\n            \"id\": 4,\n            \"email\": \"eve.holt@reqres.in\",\n            \"first_name\": \"Eve\",\n            \"last_name\": \"Holt\",\n            \"avatar\": \"https://reqres.in/img/faces/4-image.jpg\"\n        },\n        {\n            \"id\": 5,\n            \"email\": \"charles.morris@reqres.in\",\n            \"first_name\": \"Charles\",\n            \"last_name\": \"Morris\",\n            \"avatar\": \"https://reqres.in/img/faces/5-image.jpg\"\n        },\n        {\n            \"id\": 6,\n            \"email\": \"tracey.ramos@reqres.in\",\n            \"first_name\": \"Tracey\",\n            \"last_name\": \"Ramos\",\n            \"avatar\": \"https://reqres.in/img/faces/6-image.jpg\"\n        }\n    ],\n    \"support\": {\n        \"url\": \"https://reqres.in/#support-heading\",\n        \"text\": \"To keep ReqRes free, contributions towards server costs are appreciated!\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// User Variable\r",
+									"pm.collectionVariables.set(\"email\", \"eve.holt@reqres.in\");\r",
+									"pm.collectionVariables.set(\"password\", \"pistol\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json();\r",
+									"const jsonSchema = {\r",
+									"    \"title\": \"Root Schema\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"default\": {},\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"token\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"title\": \"The id Schema\",\r",
+									"            \"type\": \"integer\",\r",
+									"            \"default\": 0\r",
+									"        },\r",
+									"        \"token\": {\r",
+									"            \"title\": \"The token Schema\",\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\"\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response show no error\", function () {\r",
+									"    pm.response.to.not.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JSON Schema is valid\", function () {\r",
+									"    pm.expect(tv4.validate(responseData, jsonSchema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Register should be success and reply with token\", function () {\r",
+									"    pm.expect(responseData).to.have.property(\"token\").not.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{email}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "StartFragment\n\nSample API for POST Method.\n\nThe objective is try to register as a Dummy User to Reqress.in\n\nEndFragment"
+					},
+					"response": [
+						{
+							"name": "Positive Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 05 Jun 2023 09:11:36 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "36"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"24-4iP0za1geN2he+ohu8F0FhCjLks\""
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=p4rPQb%2F61pGkCQlO0szhUDuBkndxO%2B3bBu7FeI0AUZtGIxQ4eRAIQDFey1FEbqp42U0woT9HsUYDnwWZDo3uEyQym057mMT7u3%2Bcu5gCew7kbREJZmQZDs3cNQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "7d2749ffedb749c0-SIN"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"token\": \"QpwL5tke4Pnpja7X4\"\n}"
+						},
+						{
+							"name": "Negative Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\"\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 05 Jun 2023 09:13:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"1c-NmpazMScs9tOqR7eDEesn+pqC9Q\""
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=yajrP8DT4yV8PvGT8wKwsGsoZC2XcOjnW%2B3Qn%2FRCI7uQY8TWiwWZl1y8Z45eXEzPgYveh2wm25nq2OPBjLCyDf8Qs9VrA8i9ZqPfonA9QMg%2BR0Wb%2Fx6W6pd9yg%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "7d274c5cb98949c0-SIN"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Missing password\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "Register User - Negative",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// User Variable\r",
+									"pm.collectionVariables.set(\"email\", \"eve.holt@reqres.in\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json();\r",
+									"const jsonSchema = {\r",
+									"    \"title\": \"Root Schema\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"default\": {},\r",
+									"    \"required\": [\r",
+									"        \"error\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"error\": {\r",
+									"            \"title\": \"The error Schema\",\r",
+									"            \"type\": \"string\",\r",
+									"            \"default\": \"\"\r",
+									"        }\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response show error\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"error\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JSON Schema is valid\", function () {\r",
+									"    pm.expect(tv4.validate(responseData, jsonSchema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Register failed and system reply with \\\"Missing Password\\\"\", function () {\r",
+									"    pm.expect(responseData).to.not.have.property(\"token\")\r",
+									"    pm.expect(responseData).to.have.property(\"error\").to.eql(\"Missing password\");\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.unset(\"variable_key\");\r",
+									"pm.collectionVariables.unset(\"email\");\r",
+									"pm.collectionVariables.unset(\"password\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
