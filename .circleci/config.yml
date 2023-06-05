@@ -14,7 +14,7 @@ jobs:
           command: postman login --with-api-key $POSTMAN_API_KEY
       - run:
           name: "Running Test"
-          command: postman collection run --environment ./environment/HTTP-Sample-Env.postman_environment.json ./collection/HTTP-Sample.postman_collection.json
+          command: postman collection run --environment ./environment/HTTP-Sample-Env.postman_environment.json 27807400-54ac2c5b-8261-4a2c-8bc4-8314a0004b3c
 
 workflows:
   Testing-Workflow:
