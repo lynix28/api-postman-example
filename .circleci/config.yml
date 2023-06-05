@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  Testing-Job:
+    docker:
+      - image: cimg/base:2023.06
+    steps:
+      - checkout
+      - run:
+          name: "Install Postman CLI"
+          command: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - run:
+          name: "Login to Postman"
+          command: postman login --with-api-key $POSTMAN_API_KEY
+      - run:
+          name: "Running Test"
+          command: postman collection run --environment ./environment/HTTP-Sample-Env.postman_environment.json ./collection/HTTP-Sample.postman_collection.json
+
+workflows:
+  Testing-Workflow:
+    jobs:
+      - Testing-Job
