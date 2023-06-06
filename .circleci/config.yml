@@ -12,7 +12,7 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
             chmod +x nodesource_setup.sh
             bash nodesource_setup.sh
-            apt install nodejs
+            sudo apt install nodejs
       - run:
           name: "Install Postman CLI & Newman"
           command: |
