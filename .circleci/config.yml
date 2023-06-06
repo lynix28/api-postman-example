@@ -18,7 +18,7 @@ jobs:
           name: "Install Postman CLI & Newman"
           command: |
             curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-            npm install newman newman-reporter-htmlextra
+            npm install -g newman newman-reporter-htmlextra
       - run:
           name: "Login to Postman"
           command: postman login --with-api-key $POSTMAN_API_KEY
