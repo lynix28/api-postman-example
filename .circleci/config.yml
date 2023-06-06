@@ -7,14 +7,31 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install Postman CLI"
-          command: curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+          name: "Install NodeJS"
+          command: |
+            curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+            chmod +x nodesource_setup.sh
+            bash nodesource_setup.sh
+            apt install nodejs
+      - run:
+          name: "Install Postman CLI & Newman"
+          command: |
+            curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+            npm install newman newman-reporter-htmlextra
       - run:
           name: "Login to Postman"
           command: postman login --with-api-key $POSTMAN_API_KEY
       - run:
-          name: "Running Test"
-          command: postman collection run --environment ./environment/HTTP-Sample-Env.postman_environment.json 27807400-54ac2c5b-8261-4a2c-8bc4-8314a0004b3c
+          name: "Running Test - Postman CLI"
+          command: postman collection run --environment 27807400-c2f6805d-031c-415f-afc1-6227120f5348 27807400-54ac2c5b-8261-4a2c-8bc4-8314a0004b3c
+      - run:
+          name: "Running Test - Newman"
+          command: newman run --environment ./environment/HTTP-Sample-Env.postman_environment.json ./collection/HTTP-Sample.postman_collection.json --reporters htmlextra --reporter-htmlextra-export ./reports/report.html
+      - run:
+          name: "Wrapping Test Result"
+          command: tar -cvf artifact.tar ./reports/
+      - store_artifacts:
+          path: artifact.tar
 
 workflows:
   Testing-Workflow:
