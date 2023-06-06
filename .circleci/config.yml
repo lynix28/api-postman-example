@@ -2,8 +2,8 @@ version: 2.1
 
 jobs:
   Testing-Job:
-    docker:
-      - image: cimg/base:2023.06
+    machine:
+      image: ubuntu-2204:current
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
             chmod +x nodesource_setup.sh
             bash nodesource_setup.sh
-            apt install -y nodejs
+            sudo apt install -y nodejs
       - run:
           name: "Install Postman CLI & Newman"
           command: |
