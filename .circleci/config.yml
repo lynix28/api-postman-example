@@ -18,7 +18,8 @@ jobs:
           name: "Install Dependencies"
           command: |
             curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-            npm install newman newman-reporter-htmlextra dotenv run-func @penseapp/discord-notification
+            npm install -g newman newman-reporter-htmlextra
+            npm install dotenv run-func @penseapp/discord-notification
       - run:
           name: "Environment Setup"
           command: |
@@ -33,6 +34,7 @@ jobs:
       - run:
           name: "Send Notification - Start Testing"
           command: npx run-func discord-notification.js test "start"
+          when: always
       - run:
           name: "Running Test - Postman CLI"
           command: postman collection run --environment 27807400-c2f6805d-031c-415f-afc1-6227120f5348 27807400-54ac2c5b-8261-4a2c-8bc4-8314a0004b3c
@@ -42,6 +44,7 @@ jobs:
       - run:
           name: "Send Notification - Stop Testing"
           command: npx run-func discord-notification.js test "stop"
+          when: always
       - run:
           name: "Wrapping Test Result"
           command: tar -cvf artifact.tar ./reports/
