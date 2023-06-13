@@ -18,7 +18,7 @@ jobs:
           name: "Install Dependencies"
           command: |
             curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-            npm install -g newman newman-reporter-htmlextra dotenv run-func @penseapp/discord-notification
+            npm install newman newman-reporter-htmlextra dotenv run-func @penseapp/discord-notification
       - run:
           name: "Environment Setup"
           command: |
