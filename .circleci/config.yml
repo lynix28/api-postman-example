@@ -15,19 +15,33 @@ jobs:
             sudo apt update
             sudo apt install -y nodejs
       - run:
-          name: "Install Postman CLI & Newman"
+          name: "Install Dependencies"
           command: |
             curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-            npm install -g newman newman-reporter-htmlextra
+            npm install -g newman newman-reporter-htmlextra dotenv run-func @penseapp/discord-notification
+      - run:
+          name: "Environment Setup"
+          command: |
+            echo "BUILD=$CIRCLE_BUILD_NUM" >> .env
+            echo "REPOSITORY_URL=$CIRCLE_REPOSITORY_URL" >> .env
+            echo "BUILD_URL=$CIRCLE_BUILD_URL" >> .env
+            echo "BRANCH=$CIRCLE_BRANCH" >> .env
+            echo "DISCORD_WEBHOOK=$DISCORD_WEBHOOK" >> .env
       - run:
           name: "Login to Postman"
           command: postman login --with-api-key $POSTMAN_API_KEY
+      - run:
+          name: "Send Notification - Start Testing"
+          command: npx run-func discord-notification.js test "start"
       - run:
           name: "Running Test - Postman CLI"
           command: postman collection run --environment 27807400-c2f6805d-031c-415f-afc1-6227120f5348 27807400-54ac2c5b-8261-4a2c-8bc4-8314a0004b3c
       - run:
           name: "Running Test - Newman"
           command: newman run --environment ./environment/HTTP-Sample-Env.postman_environment.json ./collection/HTTP-Sample.postman_collection.json --reporters htmlextra --reporter-htmlextra-export ./reports/report.html
+      - run:
+          name: "Send Notification - Stop Testing"
+          command: npx run-func discord-notification.js test "stop"
       - run:
           name: "Wrapping Test Result"
           command: tar -cvf artifact.tar ./reports/
